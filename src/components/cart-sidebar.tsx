@@ -64,7 +64,7 @@ export function CartSidebar({ isOpen, onClose, onCheckout }: CartSidebarProps) {
                   </div>
                   <div>
                     <h2 className="text-xl sm:text-2xl font-bold text-foreground">Tu Carrito</h2>
-                    <p className="text-xs sm:text-sm text-muted-foreground">
+                    <p className="text-xs sm:text-sm text-muted-foreground font-[system-ui]">
                       {items.length} {items.length === 1 ? "producto" : "productos"}
                     </p>
                   </div>
@@ -87,8 +87,8 @@ export function CartSidebar({ isOpen, onClose, onCheckout }: CartSidebarProps) {
                     <ShoppingBag className="w-10 h-10 text-muted-foreground" />
                   </div>
                   <h3 className="text-lg font-semibold mb-2">Tu carrito está vacío</h3>
-                  <p className="text-sm text-muted-foreground mb-6">Agrega productos para comenzar tu pedido</p>
-                  <Button onClick={onClose} variant="outline">
+                  <p className="text-sm text-muted-foreground mb-6 font-[system-ui]">Agrega productos para comenzar tu pedido</p>
+                  <Button onClick={onClose} variant="outline" className="font-[system-ui]">
                     Explorar Productos
                   </Button>
                 </motion.div>
@@ -129,7 +129,7 @@ export function CartSidebar({ isOpen, onClose, onCheckout }: CartSidebarProps) {
                           {item.name}
                         </h4>
                         <div className="flex flex-col gap-1 mb-3">
-                          <p className="text-xs sm:text-sm text-muted-foreground">{formatPrice(item.price)} c/u</p>
+                          <p className="text-xs sm:text-sm text-muted-foreground font-[system-ui]">{formatPrice(item.price)} c/u</p>
                           {item.quantity >= 5 && (
                             <p className="text-xs font-medium text-green-600">
                               Precio mayorista: {formatPrice(getItemPrice(item))} c/u
@@ -148,7 +148,7 @@ export function CartSidebar({ isOpen, onClose, onCheckout }: CartSidebarProps) {
                             >
                               <Minus className="w-3 h-3 sm:w-4 sm:h-4" />
                             </Button>
-                            <div className="w-10 sm:w-12 text-center text-sm sm:text-base font-medium">
+                            <div className="w-10 sm:w-12 text-center text-sm sm:text-base font-medium font-[system-ui]">
                               {item.quantity}
                             </div>
                             <Button
@@ -170,7 +170,7 @@ export function CartSidebar({ isOpen, onClose, onCheckout }: CartSidebarProps) {
                               size="sm"
                               variant="ghost"
                               onClick={() => removeItem(item.id)}
-                              className="h-8 w-8 p-0 hover:bg-destructive/10 hover:text-destructive rounded-lg"
+                              className="h-8 w-8 p-0 hover:bg-destructive/10 hover:text-destructive rounded-lg "
                             >
                               <Trash2 className="w-4 h-4" />
                             </Button>
@@ -215,7 +215,7 @@ export function CartSidebar({ isOpen, onClose, onCheckout }: CartSidebarProps) {
                       "w-full h-12 sm:h-12 text-base sm:text-sm font-semibold",
                       "bg-gradient-to-r from-primary",
                       "hover:from-primary/10 hover:to-primary/10",
-                      "shadow-lg hover:shadow-xl transition-all duration-200",
+                      "shadow-lg hover:shadow-xl transition-all duration-200 font-[system-ui]",
                     )}
                     onClick={onCheckout}
                     disabled={items.length === 0}
@@ -224,7 +224,7 @@ export function CartSidebar({ isOpen, onClose, onCheckout }: CartSidebarProps) {
                   </Button>
 
                   {/* Info text */}
-                  <p className="text-xs text-center text-muted-foreground mb-7 sm:mb-0">
+                  <p className="text-xs text-center text-muted-foreground mb-7 sm:mb-0 font-[system-ui]">
                     El pago se coordina por correo electrónico
                   </p>
                 </div>

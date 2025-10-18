@@ -1,10 +1,11 @@
 import { Button } from "@/components/ui/button"
 import { Header } from "@/components/header"
 import { Hero } from "@/components/hero"
-import { Instagram, ShoppingCart } from "lucide-react";
+import { Instagram, ShoppingCart } from "lucide-react"
 import { sampleProducts } from "../../public/productos/productos"
-import { motion } from "framer-motion"
 import { useCart } from "@/hooks/cart-context"
+import { motion, useMotionValue, useTransform, animate } from "framer-motion"
+import { useEffect } from "react"
 
 export default function Home() {
   const { addItem, toggleCart } = useCart()
@@ -14,6 +15,7 @@ export default function Home() {
       <Header />
       <Hero />
 
+      {/* 🛍️ Productos */}
       <main id="productos" className="container mx-auto px-4 py-20">
         <motion.div
           className="text-center mb-16"
@@ -46,20 +48,24 @@ export default function Home() {
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
-                <p className="text-muted-foreground mb-4 text-sm font-[system-ui]">{product.description}</p>
+                <p className="text-muted-foreground mb-4 text-sm font-[system-ui]">
+                  {product.description}
+                </p>
                 <div className="flex items-center justify-between">
-                  <span className="text-2xl font-bold text-primary">${product.price.toLocaleString("es-AR")}</span>
-                    <Button
-                      size="sm"
-                      className="rounded-lg font-[system-ui] flex items-center gap-1 !p-4"
-                      onClick={() => {
-                        addItem(product)
-                        toggleCart()
-                      }}
-                    >
-                      <ShoppingCart className="w-4 h-4" />
-                      Agregar
-                    </Button>
+                  <span className="text-2xl font-bold text-primary">
+                    ${product.price.toLocaleString("es-AR")}
+                  </span>
+                  <Button
+                    size="sm"
+                    className="rounded-lg font-[system-ui] flex items-center gap-1 !p-4"
+                    onClick={() => {
+                      addItem(product)
+                      toggleCart()
+                    }}
+                  >
+                    <ShoppingCart className="w-4 h-4" />
+                    Agregar
+                  </Button>
                 </div>
               </div>
             </div>
@@ -77,7 +83,9 @@ export default function Home() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             viewport={{ once: true, amount: 0.3 }}
           >
-            <h2 className="text-4xl font-bold mb-6 gradient-text">Nuestra Historia</h2>
+            <h2 className="text-4xl font-bold mb-6 gradient-text">
+              Nuestra Historia
+            </h2>
             <p className="text-lg text-muted-foreground leading-relaxed mb-8 text-pretty">
               Somos un grupo de tres amigos unidos por la pasión entre nosotros y por el mate y el amor.
               Este emprendimiento nació de la idea de compartir esa tradición con el mundo, creando productos
@@ -86,10 +94,10 @@ export default function Home() {
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mt-12">
               {[
-                { value: "1+", label: "Año de experiencia" },
-                { value: "3", label: "Amigos y fundadores" },
-                { value: "50+", label: "Clientes felices" },
-                { value: "100%", label: "Artesanal y de calidad" },
+                { value: 1, suffix: "+", label: "Año de experiencia" },
+                { value: 3, suffix: "", label: "Amigos y fundadores" },
+                { value: 50, suffix: "+", label: "Clientes felices" },
+                { value: 100, suffix: "%", label: "Artesanal y de calidad" },
               ].map((item, index) => (
                 <motion.div
                   key={index}
@@ -99,7 +107,9 @@ export default function Home() {
                   transition={{ delay: index * 0.2, duration: 0.6 }}
                   viewport={{ once: true }}
                 >
-                  <div className="text-4xl font-bold text-primary mb-2">{item.value}</div>
+                  <div className="text-4xl font-bold text-primary mb-2">
+                    <AnimatedNumber value={item.value} />{item.suffix}
+                  </div>
                   <div className="text-muted-foreground">{item.label}</div>
                 </motion.div>
               ))}
@@ -214,4 +224,19 @@ export default function Home() {
       </motion.footer>
     </div>
   )
+}
+
+function AnimatedNumber({ value }: { value: number }) {
+  const count = useMotionValue(0)
+  const rounded = useTransform(count, (latest) => Math.floor(latest))
+
+  useEffect(() => {
+    const controls = animate(count, value, {
+      duration: 2,
+      ease: "easeOut",
+    })
+    return () => controls.stop()
+  }, [value])
+
+  return <motion.span>{rounded}</motion.span>
 }
