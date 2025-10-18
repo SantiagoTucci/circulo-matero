@@ -31,7 +31,7 @@ export const sampleProducts: Product[] = [
     description: "Calabaza seleccionada con virola de acero inoxidable y cuero natural.",
     price: 12500,
     type: "tradicional",
-    image: "/mate1ejemplo.png",
+    image: "/mate4ejemplo.jpg",
   },
   {
     id: "5",
@@ -39,7 +39,7 @@ export const sampleProducts: Product[] = [
     description: "Diseño clásico en madera de algarrobo, resistente y de gran sabor.",
     price: 9800,
     type: "madera",
-    image: "/mate2ejemplo.jpg",
+    image: "/mate6ejemplo.jpg",
   },
   {
     id: "6",
@@ -47,6 +47,6 @@ export const sampleProducts: Product[] = [
     description: "Forrado en cuero natural con costura artesanal.",
     price: 11200,
     type: "cuero",
-    image: "/mate3ejemplo.jpg",
+    image: "/mate5ejemplo.jpg",
   },
 ]

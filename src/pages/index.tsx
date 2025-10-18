@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Header } from "@/components/header"
 import { Hero } from "@/components/hero"
-import { Instagram } from "lucide-react";
+import { Instagram, ShoppingCart } from "lucide-react";
 import { sampleProducts } from "../../public/productos/productos"
 import { motion } from "framer-motion"
 import { useCart } from "@/hooks/cart-context"
@@ -25,7 +25,7 @@ export default function Home() {
           <h2 className="text-4xl sm:text-5xl font-bold mb-4 gradient-text">
             Nuestra Colección
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-pretty">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-pretty font-[system-ui]">
             Cada mate es una pieza única, elaborada con materiales nobles y técnicas tradicionales.
           </p>
         </motion.div>
@@ -46,19 +46,20 @@ export default function Home() {
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
-                <p className="text-muted-foreground mb-4 text-sm">{product.description}</p>
+                <p className="text-muted-foreground mb-4 text-sm font-[system-ui]">{product.description}</p>
                 <div className="flex items-center justify-between">
                   <span className="text-2xl font-bold text-primary">${product.price.toLocaleString("es-AR")}</span>
-                  <Button
-                    size="sm"
-                    className="rounded-lg !font-sans"
-                    onClick={() => {
-                      addItem(product)
-                      toggleCart()    
-                    }}
-                  >
-                    Agregar
-                  </Button>
+                    <Button
+                      size="sm"
+                      className="rounded-lg font-[system-ui] flex items-center gap-1 !p-4"
+                      onClick={() => {
+                        addItem(product)
+                        toggleCart()
+                      }}
+                    >
+                      <ShoppingCart className="w-4 h-4" />
+                      Agregar
+                    </Button>
                 </div>
               </div>
             </div>

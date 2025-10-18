@@ -56,11 +56,11 @@ export function Hero() {
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}
       >
-      <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 mt-28 sm:mt-32 md:mt-36 lg:mt-40 leading-tight text-white animate-fade-in text-balance">
+      <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 mt-28 sm:mt-30 md:mt-33 lg:mt-36 leading-tight text-white animate-fade-in text-balance">
         Entra al círculo, mateamos distinto.
       </h1>
 
-        <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl mb-10 max-w-3xl mx-auto leading-relaxed font-light text-white/90 animate-fade-in-up text-pretty">
+        <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl mb-6 max-w-3xl mx-auto leading-relaxed font-light text-white/90 animate-fade-in-up text-pretty font-[system-ui]">
           Descubrí nuestra colección de mates artesanales, bombillas y accesorios únicos, elaborados con pasión y
           dedicación
         </p>
@@ -69,7 +69,7 @@ export function Hero() {
           <Button
             size="lg"
             onClick={scrollToProducts}
-            className="bg-white !text-black hover:bg-white/80 font-semibold px-8 py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group"
+            className="bg-white !text-black hover:bg-white/80 font-semibold px-8 py-6 text-lg rounded-xl font-[system-ui] shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group"
           >
             Ver los productos
             <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -78,7 +78,7 @@ export function Hero() {
       </div>
 
       <div
-        className={`relative z-10 w-full max-w-3xl px-4 mt-2.5 transition-all duration-1000 delay-700 ${
+        className={`relative z-10 w-full max-w-3xl px-4 mt-2 transition-all duration-1000 delay-700 ${
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}
       >
