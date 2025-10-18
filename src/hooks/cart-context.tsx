@@ -10,6 +10,7 @@ interface CartItem extends Product {
 interface CartState {
   items: CartItem[];
   isOpen: boolean;
+  timestamp: number; 
 }
 
 type CartAction =
@@ -21,33 +22,33 @@ type CartAction =
   | { type: "SET_CART_OPEN"; payload: boolean }
   | { type: "LOAD_CART"; payload: CartState };
 
+const EXPIRATION_TIME = 20 * 60 * 1000; // 20 minutos en milisegundos
+
 const cartReducer = (state: CartState, action: CartAction): CartState => {
   switch (action.type) {
     case "ADD_ITEM": {
       const existingItem = state.items.find(item => item.id === action.payload.id);
-      if (existingItem) {
-        return {
-          ...state,
-          items: state.items.map(item =>
+      const updatedItems = existingItem
+        ? state.items.map(item =>
             item.id === action.payload.id ? { ...item, quantity: item.quantity + 1 } : item
           )
-        };
-      }
-      return { ...state, items: [...state.items, { ...action.payload, quantity: 1 }] };
+        : [...state.items, { ...action.payload, quantity: 1 }];
+
+      return { ...state, items: updatedItems, timestamp: Date.now() };
     }
-    case "UPDATE_QUANTITY":
-      return {
-        ...state,
-        items: action.payload.quantity === 0
+    case "UPDATE_QUANTITY": {
+      const updatedItems =
+        action.payload.quantity === 0
           ? state.items.filter(item => item.id !== action.payload.id)
           : state.items.map(item =>
               item.id === action.payload.id ? { ...item, quantity: action.payload.quantity } : item
-            )
-      };
+            );
+      return { ...state, items: updatedItems, timestamp: Date.now() };
+    }
     case "REMOVE_ITEM":
-      return { ...state, items: state.items.filter(item => item.id !== action.payload) };
+      return { ...state, items: state.items.filter(item => item.id !== action.payload), timestamp: Date.now() };
     case "CLEAR_CART":
-      return { ...state, items: [] };
+      return { ...state, items: [], timestamp: Date.now() };
     case "TOGGLE_CART":
       return { ...state, isOpen: !state.isOpen };
     case "SET_CART_OPEN":
@@ -74,12 +75,11 @@ interface CartContextType {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-// Funciones de "cifrado" simple con Base64
 const encrypt = (data: any) => btoa(JSON.stringify(data));
 const decrypt = (data: string) => JSON.parse(atob(data));
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [state, dispatch] = useReducer(cartReducer, { items: [], isOpen: false });
+  const [state, dispatch] = useReducer(cartReducer, { items: [], isOpen: false, timestamp: Date.now() });
 
   // Cargar carrito desde localStorage
   useEffect(() => {
@@ -87,8 +87,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
     if (savedCart) {
       try {
         const parsedCart: CartState = decrypt(savedCart);
-        if (Array.isArray(parsedCart.items) && typeof parsedCart.isOpen === "boolean") {
+        const now = Date.now();
+        if (now - parsedCart.timestamp < EXPIRATION_TIME) {
           dispatch({ type: "LOAD_CART", payload: parsedCart });
+        } else {
+          console.log("Cart expired — clearing after 20 minutes");
+          localStorage.removeItem("cart");
         }
       } catch {
         console.warn("Cart corrupted or tampered. Resetting cart.");
@@ -97,7 +101,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  // Guardar carrito en localStorage
+  // Guardar carrito en localStorage cada vez que cambia
   useEffect(() => {
     try {
       const encrypted = encrypt(state);

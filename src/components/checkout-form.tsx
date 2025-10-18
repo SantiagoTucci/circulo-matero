@@ -99,7 +99,7 @@ export function CheckoutForm({ onBack }: CheckoutFormProps) {
         total: formatPrice(total),
       }
 
-      await emailjs.send("service_5h2z6ks", "template_ol579jk", templateParams, "1nlg1_Tl512ckwhI3")
+      await emailjs.send("service_wav5fsj", "template_amenbz9", templateParams, "UUWrV55n6pCMnFoQk")
 
       setIsSuccess(true)
       clearCart()
@@ -116,7 +116,7 @@ export function CheckoutForm({ onBack }: CheckoutFormProps) {
     return (
        <>
       <Header />
-      <div className="min-h-screen w-full bg-white flex flex-col justify-center items-center p-4 lg:p-8">
+      <div className="min-h-screen w-full flex flex-col justify-center items-center p-4 lg:p-8">
         <div className="max-w-2xl w-full text-center">
           <div className="mb-6 flex justify-center">
             <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-green-100 flex items-center justify-center animate-bounce">
@@ -168,7 +168,7 @@ export function CheckoutForm({ onBack }: CheckoutFormProps) {
   return (
     <>
       <Header />
-      <div className="mt-16 w-full bg-white p-3 lg:p-6 flex flex-col overflow-auto">
+      <div className="mt-16 w-full p-3 lg:p-6 flex flex-col overflow-auto">
         <Button
           variant="ghost"
           onClick={() => navigate("/inicio")}
@@ -180,7 +180,7 @@ export function CheckoutForm({ onBack }: CheckoutFormProps) {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 max-w-6xl mx-auto w-full flex-1">
           {/* Información personal */}
-          <Card className="order-1 lg:order-1 border-primary/20 shadow-lg bg-card h-fit max-h-[70vh] overflow-y-auto">
+          <Card className="order-1 lg:order-1 border-primary/20 shadow-md bg-card h-fit  overflow-y-auto">
             <CardHeader className="bg-gradient-to-r from-primary/5 to-secondary/5 p-3">
               <div className="flex items-center gap-2">
                 <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
@@ -285,8 +285,8 @@ export function CheckoutForm({ onBack }: CheckoutFormProps) {
           </Card>
 
           {/* Resumen del pedido */}
-          <Card className="order-2 lg:order-2 border-primary/20 shadow-lg bg-card lg:sticky lg:top-4 mb-10 sm:mb-0">
-            <CardHeader className="bg-gradient-to-r from-primary/5 to-secondary/5 p-3">
+          <Card className="order-2 lg:order-2 border-primary/20 bg-card lg:sticky lg:top-4 mb-10 sm:mb-0">
+            <CardHeader className="bg-gradient-to-r from-primary/5 to-secondary/5 p-3 rounded-t-lg">
               <div className="flex items-center gap-2">
                 <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
                   <Package className="w-4 h-4 text-primary" />
