@@ -43,8 +43,8 @@ export const sampleProducts: Product[] = [
   },
   {
     id: "6",
-    name: "Mate Campestre de Cuero",
-    description: "Diseño rústico. Cuero de curtido vegetal con costuras reforzadas.",
+    name: "Mate Campestre",
+    description: "Diseño rústico. Medera y materiales únicos para una experiencia auténtica.",
     price: 11200,
     type: "cuero",
     image: "/mate5ejemplo.jpg",
