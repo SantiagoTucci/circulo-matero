@@ -25,7 +25,7 @@ export default function Home() {
 
   return (
     <LazyMotion features={domAnimation}>
-      <m.div className="min-h-screen overflow-x-hidden">
+      <m.div className="min-h-screen">
         <Header />
         <Hero />
 

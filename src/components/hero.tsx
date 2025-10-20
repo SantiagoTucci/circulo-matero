@@ -42,7 +42,7 @@ export function Hero() {
     <section
       ref={heroRef}
       id="hero"
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-[var(--hero-bg-start)] via-[var(--hero-bg-mid)] to-[var(--hero-bg-end)]"
+      className="relative min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-[var(--hero-bg-start)] via-[var(--hero-bg-mid)] to-[var(--hero-bg-end)]"
     >
       {/* Background parallax */}
       <div
