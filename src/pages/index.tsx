@@ -108,7 +108,7 @@ export default function Home() {
       </main>
 
       {/* 🧉 Sección Nosotros */}
-      <section id="nosotros" className="bg-muted/30 py-20">
+      <section id="nosotros" className="bg-muted/30 py-25">
         <div className="container mx-auto px-4">
           <motion.div
             className="max-w-4xl mx-auto text-center"

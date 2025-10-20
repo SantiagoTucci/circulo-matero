@@ -18,7 +18,7 @@ export function InfiniteCarousel({ images, speed = 30 }: InfiniteCarouselProps) 
       <motion.div
         className="flex gap-6"
         animate={{
-          x: [0, -40 * images.length + "%"],
+          x: [0, -50 * images.length + "%"],
         }}
         transition={{
           x: {
