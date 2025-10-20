@@ -110,9 +110,13 @@ export function Header() {
           >
             <ShoppingCart className="h-5 w-5" />
             {totalItems > 0 && (
-              <span className="absolute -top-1 -right-1 h-5 w-5 text-xs flex items-center justify-center font-semibold text-white overflow-hidden">
-                {totalItems}
-              </span>
+            <span
+              className={`absolute -top-1 -right-1 h-5 w-5 text-xs flex items-center justify-center font-semibold overflow-hidden rounded-full ${
+                isScrolled ? "text-green-800" : "text-white"
+              }`}
+            >
+              {totalItems}
+            </span>
             )}
           </Button>
 
