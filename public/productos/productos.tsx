@@ -11,8 +11,8 @@ export const sampleProducts: Product[] = [
   },
   {
     id: "2",
-    name: "Mate Torpedo de Algarrobo",
-    description: "Clásico de madera de algarrobo. Resistente y realza el sabor de la yerba.",
+    name: "Mate Criollo",
+    description: "Clásico de madera. Resistente y realza el sabor de la yerba.",
     price: 9800,
     type: "madera",
     image: "/mate1ejemplo.jpg",
