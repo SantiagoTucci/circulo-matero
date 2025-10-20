@@ -16,7 +16,7 @@ export function ProductCard({ product }: { product: any }) {
   };
 
   return (
-    <div className="group bg-card rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2 will-change-transform">
+    <div className="group bg-card rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2 will-change-transform mx-2">
       <div className="aspect-square bg-muted relative overflow-hidden">
         <img
           src={product.image || "/placeholder.svg"}
