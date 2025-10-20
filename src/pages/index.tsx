@@ -12,13 +12,14 @@ export default function Home() {
   const { addItem, toggleCart } = useCart()
 
   const carouselImages = [
-    "/src/assets/carousel-images/messi-mateando.jpg",
-    "/src/assets/carousel-images/mateychipa.jpg",
-    "/src/assets/carousel-images/mate-auto.jpg",
-    "/src/assets/carousel-images/mate-sur.jpg",
-    "/src/assets/carousel-images/lago-mate.jpg",
-    "/src/assets/carousel-images/dos-manos-mate.webp",
+    "/carousel-images/messi-mateando.jpg",
+    "/carousel-images/mateychipa.jpg",
+    "/carousel-images/mate-auto.jpg",
+    "/carousel-images/mate-sur.jpg",
+    "/carousel-images/lago-mate.jpg",
+    "/carousel-images/dos-manos-mate.webp",
   ]
+
 
   return (
     <div className="min-h-screen">
@@ -182,7 +183,7 @@ export default function Home() {
                 viewport={{ once: true }}
               >
                 <img
-                  src="/src/assets/logo/instagram-feed.png"
+                  src="/carousel-images/instagram-feed.png"
                   alt="Instagram Círculo Matero"
                   className="w-100 xl:w-120 max-w-full h-auto transition-all duration-300 hover:-translate-y-2 drop-shadow-lg shadow-sm hover:shadow-xl rounded-2xl overflow-hidden"
                 />
