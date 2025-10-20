@@ -46,7 +46,7 @@ export function Hero() {
     >
       {/* Background parallax */}
       <div
-        className="absolute inset-0 bg-[url('/traditional-mate-gourd-and-bombilla-on-wooden-tabl.jpg')] bg-cover bg-center opacity-15 bg-parallax will-change-transform"
+        className="absolute inset-0 bg-cover bg-center opacity-15 bg-parallax will-change-transform"
         style={{
           maxWidth: "100vw",
           maxHeight: "100vh",
