@@ -10,7 +10,6 @@ import { motion, LazyMotion, domAnimation, m, useMotionValue, useTransform, anim
 export default function Home() {
   const carouselImages = [
     "/carousel-images/messi-mateando.jpg",
-    "/carousel-images/mateychipa.jpg",
     "/carousel-images/mate-auto.jpg",
     "/carousel-images/mate-sur.jpg",
     "/carousel-images/lago-mate.jpg",
@@ -137,7 +136,7 @@ export default function Home() {
                     href="https://wa.me/5491161706060"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block rounded-xl shadow-lg hover:scale-105 transition-transform hover:bg-white hover:!text-black px-8 py-6 text-lg font-semibold"
+                    className="inline-block rounded-xl shadow-lg hover:scale-105 font-[system-ui] transition-transform bg-green-800 hover:bg-white hover:!text-black px-5 py-4 text-lg font-semibold"
                   >
                     WhatsApp
                   </a>
@@ -145,14 +144,14 @@ export default function Home() {
                     href="https://www.instagram.com/circulomatero.ok/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block rounded-xl bg-white !text-black hover:!text-white shadow-lg hover:scale-105 transition-transform px-8 py-6 text-lg font-semibold"
+                    className="inline-block rounded-xl bg-white !text-black font-[system-ui] hover:!text-white shadow-lg hover:scale-105 hover:bg-green-800 transition-transform px-5 py-4 text-lg font-semibold"
                   >
                     Instagram
                   </a>
                 </div>
 
                 <m.div
-                  className="flex justify-center mt-10"
+                  className="hidden md:flex justify-center mt-10"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, ease: "easeOut" }}
