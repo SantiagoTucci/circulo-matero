@@ -1,11 +1,11 @@
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Header } from "@/components/header"
 import { Hero } from "@/components/hero"
-import { Instagram, ShoppingCart } from "lucide-react"
+import { Instagram, ShoppingCart, CheckCircle } from "lucide-react"
 import { sampleProducts } from "../../public/productos/productos"
 import { useCart } from "@/hooks/cart-context"
 import { motion, useMotionValue, useTransform, animate } from "framer-motion"
-import { useEffect } from "react"
 import { InfiniteCarousel } from "@/components/infinite-carousel"
 
 export default function Home() {
@@ -19,7 +19,6 @@ export default function Home() {
     "/carousel-images/lago-mate.jpg",
     "/carousel-images/dos-manos-mate.webp",
   ]
-
 
   return (
     <div className="min-h-screen">
@@ -41,40 +40,70 @@ export default function Home() {
           </p>
         </motion.div>
 
-        {/* Product grid */}
+        {/* 🧉 Grid de productos */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {sampleProducts.map((product) => (
-            <div
-              key={product.id}
-              className="group bg-card rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
-            >
-              <div className="aspect-square bg-muted relative overflow-hidden">
-                <img
-                  src={product.image || "/placeholder.svg"}
-                  alt={product.name}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
-                <p className="text-muted-foreground mb-4 text-sm font-[system-ui]">{product.description}</p>
-                <div className="flex items-center justify-between">
-                  <span className="text-2xl font-bold text-primary">${product.price.toLocaleString("es-AR")}</span>
-                  <Button
-                    size="sm"
-                    className="rounded-lg font-[system-ui] flex items-center gap-1 !p-4"
-                    onClick={() => {
-                      addItem(product)
-                      toggleCart()
-                    }}
-                  >
-                    <ShoppingCart className="w-4 h-4" />
-                    Agregar
-                  </Button>
+          {sampleProducts.map((product) => {
+            const [added, setAdded] = useState(false)
+
+            const handleAdd = () => {
+              addItem(product)
+              toggleCart()
+              setAdded(true)
+              setTimeout(() => setAdded(false), 1500)
+            }
+
+            return (
+              <div
+                key={product.id}
+                className="group bg-card rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
+              >
+                <div className="aspect-square bg-muted relative overflow-hidden">
+                  <img
+                    src={product.image || "/placeholder.svg"}
+                    alt={product.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
+                  <p className="text-muted-foreground mb-4 text-sm font-[system-ui]">{product.description}</p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-2xl font-bold text-primary">
+                      ${product.price.toLocaleString("es-AR")}
+                    </span>
+
+                    <motion.div
+                      whileTap={{ scale: 0.9 }}
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                    <Button
+                      size="lg"
+                      onClick={handleAdd}
+                      className={`rounded-lg font-[system-ui] flex items-center gap-1 !p-4 transition-all ${
+                        added
+                          ? "bg-green-600 text-white hover:!bg-green-200 hover:text-black"
+                          : "bg-primary text-white hover:bg-primary/80"
+                      }`}
+                    >
+                      {added ? (
+                        <>
+                          <CheckCircle className="w-4 h-4" />
+                          Agregado
+                        </>
+                      ) : (
+                        <>
+                          <ShoppingCart className="w-4 h-4" />
+                          Agregar
+                        </>
+                      )}
+                    </Button>
+                    </motion.div>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </main>
 
@@ -157,7 +186,7 @@ export default function Home() {
               <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center md:justify-start mb-8">
                 <Button
                   size="lg"
-                  className="rounded-xl shadow-lg hover:scale-105 transition-transform"
+                  className="rounded-xl shadow-lg hover:scale-105 transition-transform hover:bg-white hover:!text-black cursor-pointer"
                   onClick={() => window.open("https://wa.me/5491161706060", "_blank")}
                 >
                   WhatsApp
@@ -166,7 +195,6 @@ export default function Home() {
                 <Button
                   asChild
                   size="lg"
-                  variant="outline"
                   className="rounded-xl bg-white !text-black hover:!text-white shadow-lg hover:scale-105 transition-transform"
                 >
                   <a href="https://www.instagram.com/circulomatero.ok/" target="_blank" rel="noopener noreferrer">
@@ -179,7 +207,7 @@ export default function Home() {
                 className="hidden md:flex justify-center mt-10"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: 'easeOut' }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
                 viewport={{ once: true }}
               >
                 <img
@@ -188,6 +216,7 @@ export default function Home() {
                   className="w-100 xl:w-120 max-w-full h-auto transition-all duration-300 hover:-translate-y-2 drop-shadow-lg shadow-sm hover:shadow-xl rounded-2xl overflow-hidden"
                 />
               </motion.div>
+
               <p className="text-md sm:text-lg text-muted-foreground max-w-xl mx-auto md:mx-0 mt-9">
                 🧉 Seguinos en <span className="font-semibold text-primary">TikTok</span> e
                 <span className="font-semibold text-primary"> Instagram</span>! <br />
@@ -205,10 +234,10 @@ export default function Home() {
             >
               <div className="w-full max-w-xs sm:max-w-sm md:max-w-md aspect-[9/16] rounded-2xl overflow-hidden shadow-2xl">
                 <iframe
-                  src="https://www.tiktok.com/embed/7561508742089657656"
+                  src="https://www.tiktok.com/embed/7556644757905198392"
                   allowFullScreen
                   title="Video de Círculo Matero"
-                  className="w-full h-full rounded-2xl"
+                  className="w-full h-full rounded-2xl border-0"
                 ></iframe>
               </div>
             </motion.div>
