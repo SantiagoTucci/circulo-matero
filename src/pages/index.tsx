@@ -161,7 +161,7 @@ export default function Home() {
       </section>
 
       {/* 💬 Sección Contacto */}
-      <section id="contacto" className="py-20 text-background">
+      <section id="contacto" className="py-25 text-background">
         <div className="container mx-auto px-4">
           <motion.div
             className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-8"
