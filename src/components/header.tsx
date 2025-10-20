@@ -38,13 +38,13 @@ export function Header() {
 
   return (
     <header
-      className={`fixed top-0 z-50 w-full transition-all duration-500 ${
+      className={`fixed top-0 left-0 w-full overflow-x-hidden z-50 transition-all duration-500 ${
         isScrolled
           ? "bg-white shadow-md"
           : "bg-gradient-to-b from-[var(--hero-bg-start)] shadow-none"
       }`}
     >
-      <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+      <div className="container mx-auto px-4 h-16 flex items-center justify-between overflow-x-hidden">
         {/* Logo */}
         <div className="flex items-center gap-2">
           <img
@@ -67,7 +67,7 @@ export function Header() {
         {/* Menu Desktop centrado */}
         {!isPedidoPage && (
           <nav
-            className={`hidden md:flex items-center space-x-8 absolute left-1/2 transform -translate-x-1/2`}
+            className="hidden md:flex items-center space-x-8 absolute left-1/2 transform -translate-x-1/2 max-w-full overflow-x-hidden"
           >
             <a
               href="#productos"
@@ -101,7 +101,7 @@ export function Header() {
           <Button
             variant="ghost"
             size="icon"
-            className={`relative transition-colors ${
+            className={`relative overflow-x-hidden transition-colors ${
               isScrolled
                 ? "text-foreground hover:bg-muted"
                 : "text-white hover:bg-white/20"
@@ -110,7 +110,7 @@ export function Header() {
           >
             <ShoppingCart className="h-5 w-5" />
             {totalItems > 0 && (
-              <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full text-xs flex items-center justify-center font-semibold bg-white text-[var(--hero-bg-start)]">
+              <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full text-xs flex items-center justify-center font-semibold bg-white text-[var(--hero-bg-start)] overflow-hidden">
                 {totalItems}
               </span>
             )}
@@ -120,18 +120,14 @@ export function Header() {
             <Button
               variant="ghost"
               size="icon"
-              className={`md:hidden transition-colors ${
+              className={`md:hidden overflow-x-hidden transition-colors ${
                 isScrolled
                   ? "text-foreground hover:bg-muted"
                   : "text-white hover:bg-white/20"
               }`}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
-              {mobileMenuOpen ? (
-                <X className="h-5 w-5" />
-              ) : (
-                <Menu className="h-5 w-5" />
-              )}
+              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
           )}
         </div>
@@ -139,24 +135,15 @@ export function Header() {
 
       {/* Menú móvil */}
       {!isPedidoPage && mobileMenuOpen && (
-        <div className="md:hidden fixed top-16 left-0 w-full bg-white z-50 border-t shadow-md">
-          <nav className="container mx-auto px-4 py-4 space-y-3">
-            <a
-              href="#productos"
-              className="block py-2 text-sm font-medium hover:text-primary"
-            >
+        <div className="md:hidden fixed top-16 left-0 w-full overflow-x-hidden bg-white z-50 border-t shadow-md">
+          <nav className="container mx-auto px-4 py-4 space-y-3 max-w-full overflow-x-hidden">
+            <a href="#productos" className="block py-2 text-sm font-medium hover:text-primary">
               Productos
             </a>
-            <a
-              href="#nosotros"
-              className="block py-2 text-sm font-medium hover:text-primary"
-            >
+            <a href="#nosotros" className="block py-2 text-sm font-medium hover:text-primary">
               Nosotros
             </a>
-            <a
-              href="#contacto"
-              className="block py-2 text-sm font-medium hover:text-primary"
-            >
+            <a href="#contacto" className="block py-2 text-sm font-medium hover:text-primary">
               Contacto
             </a>
           </nav>
