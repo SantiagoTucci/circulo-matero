@@ -1,3 +1,4 @@
+// src/pages/Home.tsx
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Header } from "@/components/header";
@@ -20,17 +21,21 @@ export default function Home() {
     "/carousel-images/dos-manos-mate.webp",
   ];
 
+  // 🔹 Forzar overflow-x-hidden en body
+  useEffect(() => {
+    document.body.style.overflowX = "hidden";
+    return () => {
+      document.body.style.overflowX = "";
+    };
+  }, []);
+
   return (
-    // Aplicamos overflow-x-hidden en todo el div principal
     <div className="min-h-screen overflow-x-hidden">
       <Header />
       <Hero />
 
       {/* 🛍️ Productos */}
-      <main
-        id="productos"
-        className="container mx-auto px-2 sm:px-4 py-20 overflow-x-hidden"
-      >
+      <main id="productos" className="container mx-auto px-2 sm:px-4 py-20 overflow-x-hidden">
         <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 40 }}
@@ -61,13 +66,14 @@ export default function Home() {
             return (
               <div
                 key={product.id}
-                className="group bg-card rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
+                className="group bg-card rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2 will-change-transform"
               >
                 <div className="aspect-square bg-muted relative overflow-hidden">
                   <img
                     src={product.image || "/placeholder.svg"}
                     alt={product.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    loading="lazy"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 will-change-transform"
                   />
                 </div>
                 <div className="p-6">
@@ -80,11 +86,7 @@ export default function Home() {
                       ${product.price.toLocaleString("es-AR")}
                     </span>
 
-                    <motion.div
-                      whileTap={{ scale: 0.9 }}
-                      whileHover={{ scale: 1.05 }}
-                      transition={{ duration: 0.2 }}
-                    >
+                    <motion.div whileTap={{ scale: 0.9 }} whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
                       <Button
                         size="lg"
                         onClick={handleAdd}
@@ -170,7 +172,7 @@ export default function Home() {
       </section>
 
       {/* 💬 Sección Contacto */}
-      <section id="contacto" className="py-25 text-background">
+      <section id="contacto" className="py-25 text-background overflow-x-hidden">
         <div className="container mx-auto px-4">
           <motion.div
             className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-8"
@@ -179,7 +181,7 @@ export default function Home() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             viewport={{ once: true, amount: 0.3 }}
           >
-            {/* 📞 Texto y Botones */}
+            {/* Texto y Botones */}
             <motion.div
               className="w-full md:w-1/2 text-center md:text-left order-first md:order-1"
               initial={{ opacity: 0, x: 60 }}
@@ -222,7 +224,8 @@ export default function Home() {
                 <img
                   src="/carousel-images/instagram-feed.png"
                   alt="Instagram Círculo Matero"
-                  className="w-100 xl:w-120 max-w-full h-auto transition-all duration-300 hover:-translate-y-2 drop-shadow-lg shadow-sm hover:shadow-xl rounded-2xl overflow-hidden"
+                  loading="lazy"
+                  className="w-100 xl:w-120 max-w-full h-auto transition-all duration-300 hover:-translate-y-2 drop-shadow-lg shadow-sm hover:shadow-xl rounded-2xl overflow-hidden will-change-transform"
                 />
               </motion.div>
 
@@ -233,7 +236,7 @@ export default function Home() {
               </p>
             </motion.div>
 
-            {/* 🎥 Video de TikTok */}
+            {/* Video de TikTok */}
             <motion.div
               className="w-full md:w-1/2 flex justify-center order-last md:order-2"
               initial={{ opacity: 0, x: -60 }}
@@ -254,9 +257,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 🦶 Footer */}
+      {/* Footer */}
       <motion.footer
-        className="bg-foreground text-background py-8"
+        className="bg-foreground text-background py-8 overflow-x-hidden"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
@@ -279,20 +282,20 @@ export default function Home() {
         </div>
       </motion.footer>
     </div>
-  )
+  );
 }
 
 function AnimatedNumber({ value }: { value: number }) {
-  const count = useMotionValue(0)
-  const rounded = useTransform(count, (latest) => Math.floor(latest))
+  const count = useMotionValue(0);
+  const rounded = useTransform(count, (latest) => Math.floor(latest));
 
   useEffect(() => {
     const controls = animate(count, value, {
       duration: 2,
       ease: "easeOut",
-    })
-    return () => controls.stop()
-  }, [value])
+    });
+    return () => controls.stop();
+  }, [value]);
 
-  return <motion.span>{rounded}</motion.span>
+  return <motion.span>{rounded}</motion.span>;
 }

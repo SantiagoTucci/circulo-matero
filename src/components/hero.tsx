@@ -5,24 +5,33 @@ import { ArrowRight } from "lucide-react";
 
 export function Hero() {
   const [isVisible, setIsVisible] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const heroRef = useRef<HTMLElement>(null);
 
+  // Animación de aparición
   useEffect(() => setIsVisible(true), []);
 
+  // Parallax del fondo solo en desktop
   useEffect(() => {
+    const heroElement = heroRef.current;
+    if (!heroElement) return;
+
+    const bg = heroElement.querySelector<HTMLDivElement>(".bg-parallax");
+    if (!bg) return;
+
     const handleMouseMove = (e: MouseEvent) => {
-      if (!heroRef.current) return;
-      const rect = heroRef.current.getBoundingClientRect();
-      setMousePosition({
-        x: (e.clientX - rect.left) / rect.width,
-        y: (e.clientY - rect.top) / rect.height,
-      });
+      const rect = heroElement.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width;
+      const y = (e.clientY - rect.top) / rect.height;
+
+      // Transform directo en el DOM para no bloquear scroll
+      bg.style.transform = `translate(${x * 5}px, ${y * 5}px) scale(1.05)`;
     };
 
-    const heroElement = heroRef.current;
-    heroElement?.addEventListener("mousemove", handleMouseMove);
-    return () => heroElement?.removeEventListener("mousemove", handleMouseMove);
+    if (window.innerWidth > 768) {
+      heroElement.addEventListener("mousemove", handleMouseMove);
+    }
+
+    return () => heroElement.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
   const scrollToProducts = () => {
@@ -35,15 +44,16 @@ export function Hero() {
       id="hero"
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-[var(--hero-bg-start)] via-[var(--hero-bg-mid)] to-[var(--hero-bg-end)]"
     >
-      {/* Background con parallax */}
+      {/* Background parallax */}
       <div
-        className="absolute inset-0 bg-[url('/traditional-mate-gourd-and-bombilla-on-wooden-tabl.jpg')] bg-cover bg-center opacity-15 transition-transform duration-1000 ease-out"
+        className="absolute inset-0 bg-[url('/traditional-mate-gourd-and-bombilla-on-wooden-tabl.jpg')] bg-cover bg-center opacity-15 bg-parallax will-change-transform"
         style={{
-          transform: `translate(${mousePosition.x * 5}px, ${mousePosition.y * 5}px) scale(1.05)`,
           maxWidth: "100vw",
           maxHeight: "100vh",
         }}
       />
+
+      {/* Overlay gradient */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20" />
 
       {/* Texto principal */}
@@ -52,7 +62,7 @@ export function Hero() {
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}
       >
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 mt-28 sm:mt-30 md:mt-33 lg:mt-36 leading-tight text-white animate-fade-in text-balance">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 mt-28 leading-tight text-white animate-fade-in text-balance">
           Entra al círculo, mateamos distinto.
         </h1>
 
