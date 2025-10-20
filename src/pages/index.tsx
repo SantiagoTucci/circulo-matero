@@ -6,9 +6,19 @@ import { sampleProducts } from "../../public/productos/productos"
 import { useCart } from "@/hooks/cart-context"
 import { motion, useMotionValue, useTransform, animate } from "framer-motion"
 import { useEffect } from "react"
+import { InfiniteCarousel } from "@/components/infinite-carousel"
 
 export default function Home() {
   const { addItem, toggleCart } = useCart()
+
+  const carouselImages = [
+    "/src/assets/carousel-images/messi-mateando.jpg",
+    "/src/assets/carousel-images/mateychipa.jpg",
+    "/src/assets/carousel-images/mate-auto.jpg",
+    "/src/assets/carousel-images/mate-sur.jpg",
+    "/src/assets/carousel-images/lago-mate.jpg",
+    "/src/assets/carousel-images/dos-manos-mate.webp",
+  ]
 
   return (
     <div className="min-h-screen">
@@ -24,9 +34,7 @@ export default function Home() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           viewport={{ once: true, amount: 0.3 }}
         >
-          <h2 className="text-4xl sm:text-5xl font-bold mb-4 gradient-text">
-            Nuestra Colección
-          </h2>
+          <h2 className="text-4xl sm:text-5xl font-bold mb-4 gradient-text">Nuestra Colección</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-pretty font-[system-ui]">
             Cada mate es una pieza única, elaborada con materiales nobles y técnicas tradicionales.
           </p>
@@ -41,20 +49,16 @@ export default function Home() {
             >
               <div className="aspect-square bg-muted relative overflow-hidden">
                 <img
-                  src={product.image}
+                  src={product.image || "/placeholder.svg"}
                   alt={product.name}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
-                <p className="text-muted-foreground mb-4 text-sm font-[system-ui]">
-                  {product.description}
-                </p>
+                <p className="text-muted-foreground mb-4 text-sm font-[system-ui]">{product.description}</p>
                 <div className="flex items-center justify-between">
-                  <span className="text-2xl font-bold text-primary">
-                    ${product.price.toLocaleString("es-AR")}
-                  </span>
+                  <span className="text-2xl font-bold text-primary">${product.price.toLocaleString("es-AR")}</span>
                   <Button
                     size="sm"
                     className="rounded-lg font-[system-ui] flex items-center gap-1 !p-4"
@@ -83,14 +87,21 @@ export default function Home() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             viewport={{ once: true, amount: 0.3 }}
           >
-            <h2 className="text-4xl font-bold mb-6 gradient-text">
-              Nuestra Historia
-            </h2>
+            <h2 className="text-4xl font-bold mb-6 gradient-text">Nuestra Historia</h2>
             <p className="text-lg text-muted-foreground leading-relaxed mb-8 text-pretty">
-              Somos un grupo de tres amigos unidos por la pasión entre nosotros y por el mate y el amor.
-              Este emprendimiento nació de la idea de compartir esa tradición con el mundo, creando productos
-              que representen la calidez, el encuentro y la identidad que el mate simboliza para todos los argentinos.
+              Somos tres amigos unidos por la pasión y la tradición del mate. Este emprendimiento nació para compartir
+              la calidez, el encuentro y la identidad que el mate simboliza para todos los argentinos, a través de
+              productos de calidad.
             </p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
+              <InfiniteCarousel images={carouselImages} speed={40} />
+            </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mt-12">
               {[
@@ -108,7 +119,8 @@ export default function Home() {
                   viewport={{ once: true }}
                 >
                   <div className="text-4xl font-bold text-primary mb-2">
-                    <AnimatedNumber value={item.value} />{item.suffix}
+                    <AnimatedNumber value={item.value} />
+                    {item.suffix}
                   </div>
                   <div className="text-muted-foreground">{item.label}</div>
                 </motion.div>
@@ -145,9 +157,7 @@ export default function Home() {
                 <Button
                   size="lg"
                   className="rounded-xl shadow-lg hover:scale-105 transition-transform"
-                  onClick={() =>
-                    window.open("https://wa.me/5491161706060", "_blank")
-                  }
+                  onClick={() => window.open("https://wa.me/5491161706060", "_blank")}
                 >
                   WhatsApp
                 </Button>
@@ -158,18 +168,27 @@ export default function Home() {
                   variant="outline"
                   className="rounded-xl bg-white !text-black hover:!text-white shadow-lg hover:scale-105 transition-transform"
                 >
-                  <a
-                    href="https://www.instagram.com/circulomatero.ok/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <a href="https://www.instagram.com/circulomatero.ok/" target="_blank" rel="noopener noreferrer">
                     Instagram
                   </a>
                 </Button>
               </div>
 
-              <p className="text-md sm:text-lg text-muted-foreground max-w-xl mx-auto md:mx-0 mt-8 sm:mt-6">
-                🧉 Seguinos en <span className="font-semibold text-primary">TikTok</span> e 
+              <motion.div
+                className="hidden md:flex justify-center mt-10"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: 'easeOut' }}
+                viewport={{ once: true }}
+              >
+                <img
+                  src="/src/assets/logo/instagram-feed.png"
+                  alt="Instagram Círculo Matero"
+                  className="w-100 xl:w-120 max-w-full h-auto transition-all duration-300 hover:-translate-y-2 drop-shadow-lg shadow-sm hover:shadow-xl rounded-2xl overflow-hidden"
+                />
+              </motion.div>
+              <p className="text-md sm:text-lg text-muted-foreground max-w-xl mx-auto md:mx-0 mt-9">
+                🧉 Seguinos en <span className="font-semibold text-primary">TikTok</span> e
                 <span className="font-semibold text-primary"> Instagram</span>! <br />
                 Subimos nuevos productos y contenido divertido todas las semanas.
               </p>
@@ -205,9 +224,7 @@ export default function Home() {
         viewport={{ once: true, amount: 0.2 }}
       >
         <div className="container mx-auto px-4 text-center space-y-4">
-          <p className="text-sm opacity-80">
-            © 2025 Círculo Matero. Todos los derechos reservados.
-          </p>
+          <p className="text-sm opacity-80">© 2025 Círculo Matero. Todos los derechos reservados.</p>
           <div className="flex items-center justify-center gap-2">
             <span className="text-sm opacity-80">Hecho por</span>
             <a

@@ -15,7 +15,6 @@ export function Header() {
   const { items } = useCart();
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
 
-  // Detectar si estamos en /pedido
   const isPedidoPage = location.pathname === "/pedido";
 
   useEffect(() => {
@@ -65,9 +64,11 @@ export function Header() {
           </a>
         </div>
 
-        {/* Menu Desktop */}
+        {/* Menu Desktop centrado */}
         {!isPedidoPage && (
-          <nav className="hidden md:flex items-center space-x-6">
+          <nav
+            className={`hidden md:flex items-center space-x-8 absolute left-1/2 transform -translate-x-1/2`}
+          >
             <a
               href="#productos"
               className={`text-sm font-medium transition-colors hover:opacity-80 ${
