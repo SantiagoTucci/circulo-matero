@@ -110,7 +110,7 @@ export function Header() {
           >
             <ShoppingCart className="h-5 w-5" />
             {totalItems > 0 && (
-              <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full text-xs flex items-center justify-center font-semibold bg-white text-[var(--hero-bg-start)] overflow-hidden">
+              <span className="absolute -top-1 -right-1 h-5 w-5 text-xs flex items-center justify-center font-semibold text-white overflow-hidden">
                 {totalItems}
               </span>
             )}
