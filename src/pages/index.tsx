@@ -1,15 +1,15 @@
-import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { Header } from "@/components/header"
-import { Hero } from "@/components/hero"
-import { Instagram, ShoppingCart, CheckCircle } from "lucide-react"
-import { sampleProducts } from "../../public/productos/productos"
-import { useCart } from "@/hooks/cart-context"
-import { motion, useMotionValue, useTransform, animate } from "framer-motion"
-import { InfiniteCarousel } from "@/components/infinite-carousel"
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Header } from "@/components/header";
+import { Hero } from "@/components/hero";
+import { Instagram, ShoppingCart, CheckCircle } from "lucide-react";
+import { sampleProducts } from "../../public/productos/productos";
+import { useCart } from "@/hooks/cart-context";
+import { motion, useMotionValue, useTransform, animate } from "framer-motion";
+import { InfiniteCarousel } from "@/components/infinite-carousel";
 
 export default function Home() {
-  const { addItem, toggleCart } = useCart()
+  const { addItem, toggleCart } = useCart();
 
   const carouselImages = [
     "/carousel-images/messi-mateando.jpg",
@@ -18,15 +18,19 @@ export default function Home() {
     "/carousel-images/mate-sur.jpg",
     "/carousel-images/lago-mate.jpg",
     "/carousel-images/dos-manos-mate.webp",
-  ]
+  ];
 
   return (
-    <div className="min-h-screen">
+    // Aplicamos overflow-x-hidden en todo el div principal
+    <div className="min-h-screen overflow-x-hidden">
       <Header />
       <Hero />
 
       {/* 🛍️ Productos */}
-      <main id="productos" className="container mx-auto px-4 py-20">
+      <main
+        id="productos"
+        className="container mx-auto px-2 sm:px-4 py-20 overflow-x-hidden"
+      >
         <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 40 }}
@@ -34,23 +38,25 @@ export default function Home() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           viewport={{ once: true, amount: 0.3 }}
         >
-          <h2 className="text-4xl sm:text-5xl font-bold mb-4 gradient-text">Nuestra Colección</h2>
+          <h2 className="text-4xl sm:text-5xl font-bold mb-4 gradient-text">
+            Nuestra Colección
+          </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-pretty font-[system-ui]">
             Cada mate es una pieza única, elaborada con materiales nobles y técnicas tradicionales.
           </p>
         </motion.div>
 
         {/* 🧉 Grid de productos */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-full overflow-hidden">
           {sampleProducts.map((product) => {
-            const [added, setAdded] = useState(false)
+            const [added, setAdded] = useState(false);
 
             const handleAdd = () => {
-              addItem(product)
-              toggleCart()
-              setAdded(true)
-              setTimeout(() => setAdded(false), 1500)
-            }
+              addItem(product);
+              toggleCart();
+              setAdded(true);
+              setTimeout(() => setAdded(false), 1500);
+            };
 
             return (
               <div
@@ -66,7 +72,9 @@ export default function Home() {
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
-                  <p className="text-muted-foreground mb-4 text-sm font-[system-ui]">{product.description}</p>
+                  <p className="text-muted-foreground mb-4 text-sm font-[system-ui]">
+                    {product.description}
+                  </p>
                   <div className="flex items-center justify-between">
                     <span className="text-2xl font-bold text-primary">
                       ${product.price.toLocaleString("es-AR")}
@@ -77,39 +85,39 @@ export default function Home() {
                       whileHover={{ scale: 1.05 }}
                       transition={{ duration: 0.2 }}
                     >
-                    <Button
-                      size="lg"
-                      onClick={handleAdd}
-                      className={`rounded-lg font-[system-ui] flex items-center gap-1 !p-4 transition-all ${
-                        added
-                          ? "bg-green-600 text-white hover:!bg-green-200 hover:text-black"
-                          : "bg-primary text-white hover:bg-primary/80"
-                      }`}
-                    >
-                      {added ? (
-                        <>
-                          <CheckCircle className="w-4 h-4" />
-                          Agregado
-                        </>
-                      ) : (
-                        <>
-                          <ShoppingCart className="w-4 h-4" />
-                          Agregar
-                        </>
-                      )}
-                    </Button>
+                      <Button
+                        size="lg"
+                        onClick={handleAdd}
+                        className={`rounded-lg font-[system-ui] flex items-center gap-1 !p-4 transition-all ${
+                          added
+                            ? "bg-green-600 text-white hover:!bg-green-200 hover:text-black"
+                            : "bg-primary text-white hover:bg-primary/80"
+                        }`}
+                      >
+                        {added ? (
+                          <>
+                            <CheckCircle className="w-4 h-4" />
+                            Agregado
+                          </>
+                        ) : (
+                          <>
+                            <ShoppingCart className="w-4 h-4" />
+                            Agregar
+                          </>
+                        )}
+                      </Button>
                     </motion.div>
                   </div>
                 </div>
               </div>
-            )
+            );
           })}
         </div>
       </main>
 
       {/* 🧉 Sección Nosotros */}
-      <section id="nosotros" className="bg-muted/30 py-25">
-        <div className="container mx-auto px-4">
+      <section id="nosotros" className="bg-muted/30 py-25 overflow-x-hidden">
+        <div className="container mx-auto px-2 sm:px-4 overflow-x-hidden">
           <motion.div
             className="max-w-4xl mx-auto text-center"
             initial={{ opacity: 0, y: 50 }}
@@ -125,6 +133,7 @@ export default function Home() {
             </p>
 
             <motion.div
+              className="overflow-hidden"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -133,7 +142,7 @@ export default function Home() {
               <InfiniteCarousel images={carouselImages} speed={40} />
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mt-12">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mt-12 overflow-hidden">
               {[
                 { value: 1, suffix: "+", label: "Año de experiencia" },
                 { value: 3, suffix: "", label: "Amigos y fundadores" },
