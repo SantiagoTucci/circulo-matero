@@ -118,7 +118,6 @@ export default function Home() {
               transition={{ duration: 0.8, ease: "easeOut" }}
               viewport={{ once: true, amount: 0.3 }}
             >
-              {/* Texto y botones */}
               <m.div
                 className="w-full md:w-1/2 text-center md:text-left order-first md:order-1"
                 initial={{ opacity: 0, x: 60 }}
